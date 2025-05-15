@@ -50,6 +50,9 @@ public class UserInterface {
                 case 9:
                     processRemoveVehicleRequest(scanner);
                     break;
+                case 10:
+                    processContractRequest(scanner);
+                    break;
                 case 0:
                     run=false;
                     System.exit(0);
@@ -78,6 +81,7 @@ public class UserInterface {
         System.out.println("7 - List ALL vehicles");
         System.out.println("8 - Add a vehicle");
         System.out.println("9 - Remove a vehicle");
+        System.out.println("10 - Sell/Lease a vehicle");
         System.out.println("0 - Quit");
     }
 
@@ -175,6 +179,26 @@ public class UserInterface {
         DealershipFileManager fileManager = new DealershipFileManager();
         fileManager.saveDealership(dealership);
 
+
+    }
+
+    public void processContractRequest(Scanner scanner){
+        System.out.println("Choose from next option:");
+        System.out.println("1. Sale Contract");
+        System.out.println("2. Lease Contract");
+        System.out.println(" ");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+
+        switch (choice){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                System.out.println("Invalid input. Try again!");
+                break;
+        }
 
     }
 
