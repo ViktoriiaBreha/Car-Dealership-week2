@@ -200,8 +200,7 @@ public class UserInterface {
         System.out.print("Enter you email: ");
         String email = scanner.nextLine();
         LocalDate localDate = LocalDate.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-mm-dd");
-        String date_time = dateTimeFormatter.toString();
+        String date_time = localDate.format(DateTimeFormatter.ofPattern("YYYY-mm-dd"));
 
         ContractFileManager fileManager = new ContractFileManager();
 

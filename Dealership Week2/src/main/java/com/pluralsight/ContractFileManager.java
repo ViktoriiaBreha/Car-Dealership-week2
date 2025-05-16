@@ -12,6 +12,9 @@ public class ContractFileManager {
             FileWriter fileWriter = new FileWriter("Dealership Week2/src/main/resources/WorkshopFiles/contracts.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
+            DealershipFileManager dealershipFileManager = new DealershipFileManager();
+            dealership = dealershipFileManager.getDealership();
+
 
             if (contract instanceof SalesContract){
                 bufferedWriter.write(String.format("Sale"+"|%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%b|%.2f", contract.date_of_contract, contract.getCustomer_name(),
