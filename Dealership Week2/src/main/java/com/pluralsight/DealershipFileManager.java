@@ -16,8 +16,9 @@ public class DealershipFileManager {
             String phone = parts[2];
             dealership = new Dealership(name, address, phone);
 
+            //App will break if there is an empty line
             while((line = bufReader.readLine())!=null){
-                if (line.startsWith("D")){
+                if (line.startsWith("D") || line.isEmpty() ){
                     continue;
                 }
 
@@ -41,8 +42,20 @@ public class DealershipFileManager {
 
     public void saveDealership (Dealership dealership){
         try{
-            FileWriter fileWriter = new FileWriter("Dealership Week2/src/main/resources/WorkshopFiles/inventory.csv", true);
+            FileReader fileReader = new FileReader("Dealership Week2/src/main/resources/WorkshopFiles/inventory.csv");
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            String line = bufReader.readLine();
+            String[] parts = line.split(Pattern.quote("|"));
+            String name = parts [0];
+            String address = parts[1];
+            String phone = parts[2];
+            bufReader.close();
+            //Need to find way to keep dealership info after overwriting
+            FileWriter fileWriter = new FileWriter("Dealership Week2/src/main/resources/WorkshopFiles/inventory.csv");
             BufferedWriter bufWriter = new BufferedWriter(fileWriter);
+            bufWriter.write(String.format("%s|%s|%s", name, address,phone));
+            bufWriter.newLine();
+
 
             for (Vehicle v : dealership.getAllVehicles()) {
                 bufWriter.write(String.format("%d|%d|%s|%s|%s|%s|%d|%.2f", v.getVin(),v.getYear(), v.getMake(),

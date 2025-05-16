@@ -62,14 +62,14 @@ public class SalesContract extends Contract {
 
             double total = getTotal_price();
             double loan;
-            int month;
+
 
             if (getTotal_price() >= 10000) {
                 loan = 0.0425 / 12;
-                month = 48;
+
             } else {
                 loan = 0.0525 / 12;
-                month = 24;
+
             }
             monthly_pay = total / 12;
             double interest_gain = monthly_pay * loan;

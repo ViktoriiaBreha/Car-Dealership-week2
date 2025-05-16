@@ -13,22 +13,30 @@ public class LeaseContract extends Contract{
 
     @Override
     public double getTotal_price() {
-        double ending_value = vehicle_sold.getPrice() , fee = vehicle_sold.getPrice() * 0.07;
-        ending_value *= 0.5;
+        return getExpectedEndingValue()+getLeaseFee();
+    }
 
-        return ending_value + fee;
+    public double getExpectedEndingValue(){
+        double ending_value = vehicle_sold.getPrice();
+        ending_value *=0.5;
+        return ending_value;
+    }
+
+    public  double getLeaseFee(){
+        double fee = vehicle_sold.getPrice() * 0.07;
+
+        return fee;
     }
 
     @Override
     public double getMonthly_payment() {
         double reduced_price = getTotal_price();
 
-        double rate = (reduced_price)*(0.04 / 12);
-        int month = 36;
-        reduced_price = reduced_price / month;
+        double interest_over_year = (reduced_price)*(0.04 / 12);
+        reduced_price = reduced_price/12;
 
 
-        return reduced_price ;
+        return reduced_price + interest_over_year ;
     }
 
     public double getEnding_value() {
