@@ -30,7 +30,7 @@ public abstract class Contract {
         return customer_email;
     }
 
-    public Vehicle isVehicle_sold() {
+    public Vehicle getVehicle_sold() {
         return vehicle_sold;
     }
 

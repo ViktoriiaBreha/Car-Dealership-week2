@@ -7,7 +7,7 @@ public class DealershipFileManager {
     private static Dealership dealership;
     public Dealership getDealership () {
         try{
-            FileReader fileReader = new FileReader("src/main/resources/WorkshopFiles/inventory.csv");
+            FileReader fileReader = new FileReader("Dealership Week2/src/main/resources/WorkshopFiles/inventory.csv");
             BufferedReader bufReader = new BufferedReader(fileReader);
             String line = bufReader.readLine();
             String[] parts = line.split(Pattern.quote("|"));
@@ -41,7 +41,7 @@ public class DealershipFileManager {
 
     public void saveDealership (Dealership dealership){
         try{
-            FileWriter fileWriter = new FileWriter("src/main/resources/WorkshopFiles/inventory.csv", true);
+            FileWriter fileWriter = new FileWriter("Dealership Week2/src/main/resources/WorkshopFiles/inventory.csv", true);
             BufferedWriter bufWriter = new BufferedWriter(fileWriter);
 
             for (Vehicle v : dealership.getAllVehicles()) {

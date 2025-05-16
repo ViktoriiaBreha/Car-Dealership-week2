@@ -1,10 +1,15 @@
 package com.pluralsight;
 
+import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
     private Dealership dealership;
+    private Contract contract;
+    private Vehicle vehicle;
 
     public UserInterface() {
 
@@ -189,11 +194,56 @@ public class UserInterface {
         System.out.println(" ");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter you email: ");
+        String email = scanner.nextLine();
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-mm-dd");
+        String date_time = dateTimeFormatter.toString();
+
+        ContractFileManager fileManager = new ContractFileManager();
+
 
         switch (choice){
+
             case 1:
+                System.out.print("Enter VIN of the vehicle: ");
+                int vin_veh = scanner.nextInt();
+
+                scanner.nextLine();
+
+
+                System.out.println("Would you like to have finance? (yes/no)");
+                System.out.print("Your answer: ");
+                String yes_no = scanner.nextLine();
+                boolean answer = true;
+
+                if (yes_no.equalsIgnoreCase("yes")){
+                   answer = true;
+
+                }else {
+                   answer = false;
+
+                }
+
+                SalesContract salesContract = new SalesContract(date_time, name, email,
+                        dealership.getVehicleByTheVin(vin_veh), 0.0, 0.0, 0.05, 100, 0.0,answer);
+                fileManager.saveContract(salesContract);
                 break;
             case 2:
+                System.out.print("Enter VIN of the vehicle: ");
+                int vin_veh2 = scanner.nextInt();
+                contract.setVehicle_sold(dealership.getVehicleByTheVin(vin_veh2));
+                scanner.nextLine();
+
+                LeaseContract leaseContract = new LeaseContract(date_time, name, email,
+                        dealership.getVehicleByTheVin(vin_veh2),0.0, 0.0, 0.0, 0.0);
+
+                fileManager.saveContract(leaseContract);
+
+
                 break;
             default:
                 System.out.println("Invalid input. Try again!");
@@ -201,6 +251,8 @@ public class UserInterface {
         }
 
     }
+
+
 
 
 }

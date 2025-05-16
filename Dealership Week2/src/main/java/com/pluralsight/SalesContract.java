@@ -5,15 +5,14 @@ public class SalesContract extends Contract{
  private double recording_fee;
  private double processing_fee;
  private boolean finance_status;
- private double monthly_pay;
 
-    public SalesContract(String date_of_contract, String customer_name, String customer_email, Vehicle vehicle_sold, double total_price, double monthly_payment, double sales_tax, double recording_fee, double processing_fee, boolean finance_status, double monthly_pay) {
+
+    public SalesContract(String date_of_contract, String customer_name, String customer_email, Vehicle vehicle_sold, double total_price, double monthly_payment, double sales_tax, double recording_fee, double processing_fee, boolean finance_status) {
         super(date_of_contract, customer_name, customer_email, vehicle_sold, total_price, monthly_payment);
         this.sales_tax = sales_tax;
         this.recording_fee = recording_fee;
         this.processing_fee = processing_fee;
         this.finance_status = finance_status;
-        this.monthly_pay = monthly_pay;
     }
 
     @Override
@@ -29,14 +28,18 @@ public class SalesContract extends Contract{
         return total_price;
     }
 
-    public boolean isFinance (boolean answer) {
+    public void isFinance (boolean answer) {
+        if (answer == true){
+            this.finance_status = true;
+        } else {
+            this.finance_status = false;
+        }
 
-        return answer;
     }
 
     @Override
     public double getMonthly_payment() {
-        if (isFinance(false)){
+        if (this.finance_status == false){
             return 0;
         } else {
 
@@ -73,7 +76,4 @@ public class SalesContract extends Contract{
         return finance_status;
     }
 
-    public double getMonthly_pay() {
-        return monthly_pay;
-    }
 }
