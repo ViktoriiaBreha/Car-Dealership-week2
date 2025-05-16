@@ -1,10 +1,10 @@
 package com.pluralsight;
 
-public class SalesContract extends Contract{
- private double sales_tax;
- private double recording_fee;
- private double processing_fee;
- private boolean finance_status;
+public class SalesContract extends Contract {
+    private double sales_tax;
+    private double recording_fee;
+    private double processing_fee;
+    private boolean finance_status;
 
 
     public SalesContract(String date_of_contract, String customer_name, String customer_email, Vehicle vehicle_sold, double total_price, double monthly_payment, double sales_tax, double recording_fee, double processing_fee, boolean finance_status) {
@@ -17,19 +17,17 @@ public class SalesContract extends Contract{
 
     @Override
     public double getTotal_price() {
-        double car_price = vehicle_sold.getPrice(), total_price = 0;
-        total_price = car_price* 0.05;
-        total_price += 100;
-        if (car_price < 10000){
-            total_price += 295;
-        } else {
-            total_price += 495;
-        }
+        double sales_tax = getSalesTaxAmount(), processing_fee = getProcessingFee(), recording_fee =
+                getRecording_fee(), car_price = vehicle_sold.getPrice(), total_price = 0;
+
+        total_price += car_price + sales_tax + recording_fee + processing_fee;
+
         return total_price;
+
     }
 
-    public void isFinance (boolean answer) {
-        if (answer == true){
+    public void isFinance(boolean answer) {
+        if (answer == true) {
             this.finance_status = true;
         } else {
             this.finance_status = false;
@@ -37,9 +35,28 @@ public class SalesContract extends Contract{
 
     }
 
+    public double getSalesTaxAmount() {
+        double car_price = vehicle_sold.getPrice();
+        total_price = car_price * 0.05;
+        return total_price;
+    }
+
+    public double getProcessingFee() {
+        double car_price = vehicle_sold.getPrice();
+
+        if (car_price < 10000) {
+            processing_fee = 295;
+        } else {
+            processing_fee = 495;
+        }
+        return processing_fee;
+    }
+
+
     @Override
     public double getMonthly_payment() {
-        if (this.finance_status == false){
+        double monthly_pay;
+        if (this.finance_status == false) {
             return 0;
         } else {
 
@@ -47,17 +64,19 @@ public class SalesContract extends Contract{
             double loan;
             int month;
 
-            if (getTotal_price() >= 10000){
-                loan = 0.0425/12;
+            if (getTotal_price() >= 10000) {
+                loan = 0.0425 / 12;
                 month = 48;
             } else {
                 loan = 0.0525 / 12;
                 month = 24;
             }
+            monthly_pay = total / 12;
+            double interest_gain = monthly_pay * loan;
+            monthly_pay = interest_gain + monthly_pay;
 
-            double monthly_pay = (total * loan * Math.pow(1 + loan, month)) / (Math.pow(1+loan,month) - 1);
         }
-        return monthly_payment;
+        return monthly_pay;
     }
 
     public double getSales_tax() {
@@ -65,11 +84,7 @@ public class SalesContract extends Contract{
     }
 
     public double getRecording_fee() {
-        return recording_fee;
-    }
-
-    public double getProcessing_fee() {
-        return processing_fee;
+        return 100;
     }
 
     public boolean isFinance_status() {

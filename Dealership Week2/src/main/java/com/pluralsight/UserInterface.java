@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -199,8 +200,8 @@ public class UserInterface {
         String name = scanner.nextLine();
         System.out.print("Enter you email: ");
         String email = scanner.nextLine();
-        LocalDate localDate = LocalDate.now();
-        String date_time = localDate.format(DateTimeFormatter.ofPattern("YYYY-mm-dd"));
+        LocalDateTime localDate = LocalDateTime.now();
+        String date_time = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         ContractFileManager fileManager = new ContractFileManager();
 
@@ -234,7 +235,6 @@ public class UserInterface {
             case 2:
                 System.out.print("Enter VIN of the vehicle: ");
                 int vin_veh2 = scanner.nextInt();
-                contract.setVehicle_sold(dealership.getVehicleByTheVin(vin_veh2));
                 scanner.nextLine();
 
                 LeaseContract leaseContract = new LeaseContract(date_time, name, email,
